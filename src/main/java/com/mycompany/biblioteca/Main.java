@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class Main {
 
     static ArrayList<Client> clients = new ArrayList<>();
+    static ArrayList<Book> books = new ArrayList<>();
     static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -115,4 +116,85 @@ private static void DELETE() {
     System.out.println("Cliente eliminado correctamente.");
 }
 
+//-----------LIBRO---------------
+
+// CREATE
+    private static void createBook() {
+        System.out.println("\n-- Create book --");
+        String code = readText("Code: ");
+        if (findBookInternal(code) != null) {
+            System.out.println("A book with that code already exists.");
+            return;
+        }
+        String title = readText("Title: ");
+        String year = readText("Publication year: ");
+        String author = readText("Author: ");
+        books.add(new Book(code, title, year, author));
+        System.out.println("Book created successfully.");
+    }
+    // Método auxiliar para buscar un libro por código
+private static Book findBookInternal(String code) {
+    for (Book b : books) {
+        if (b.getCode().equals(code)) {
+            return b;
+        }
+    }
+
+    return null;
+}
+    // Leer texto ingresado por el usuario
+private static String readText(String prompt) {
+    System.out.print(prompt);
+    return sc.nextLine();
+}
+
+
+// READ (list)
+private static void listBooks() {
+    System.out.println("\n-- lista de libros  --");
+
+    if (books.isEmpty()) {
+        System.out.println("NO hay libros registrados.");
+        return;
+    }
+
+    for (Book b : books) {
+        System.out.println(b);
+    }
+}
+//READ (BUSCAR)
+private static void findBookByCode(String code) {
+        Book b = findBookInternal(code);
+        if (b == null) {
+            System.out.println("Book not found.");
+        } else {
+            System.out.println(b);
+        }
+    }
+
+// UPDATE
+    private static void updateBook() {
+        String code = readText("Codigo del libro para actualizar: ");
+        Book b = findBookInternal(code);
+        if (b == null) {
+            System.out.println("libro no encontrado ");
+            return;
+        }
+        b.setTitle(readText("nuevo titulo  (" + b.getTitle() + "): "));
+        b.setPublicationYear(readText("nuevo año (" + b.getPublicationYear() + "): "));
+        b.setAuthor(readText("nuevo autor (" + b.getAuthor() + "): "));
+        System.out.println("libro actualizado exitosamente.");
+    }
+    
+     // DELETE
+    private static void deleteBook() {
+        String code = readText("Codigo del libro a eliminar: ");
+        Book b = findBookInternal(code);
+        if (b == null) {
+            System.out.println("libro no encontrado.");
+            return;
+        }
+        books.remove(b);
+        System.out.println("libro eliminado exitosamente.");
+    }
 }
