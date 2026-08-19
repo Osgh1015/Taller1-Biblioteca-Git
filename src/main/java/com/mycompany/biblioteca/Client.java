@@ -1,7 +1,7 @@
 
 package com.mycompany.biblioteca;
 
-public class Client extends  {
+public class Client extends Person {
     private String email;
  
     public Client(String id, String name, String phone, String email) {
