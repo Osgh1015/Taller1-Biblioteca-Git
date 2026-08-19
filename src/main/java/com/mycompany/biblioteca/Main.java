@@ -71,4 +71,28 @@ private static void findClientById(String id) {
             System.out.println(c);
         }
     }
+
+//UPDATE
+private static void UPDATE() {
+    System.out.print("Id del cliente a actualizar: ");
+    String id = sc.nextLine();
+
+    Client c = findClientInternal(id);
+
+    if (c == null) {
+        System.out.println("Cliente no encontrado.");
+        return;
+    }
+
+    System.out.print("Nuevo nombre (" + c.getName() + "): ");
+    c.setName(sc.nextLine());
+
+    System.out.print("Nuevo teléfono (" + c.getPhone() + "): ");
+    c.setPhone(sc.nextLine());
+
+    System.out.print("Nuevo email (" + c.getEmail() + "): ");
+    c.setEmail(sc.nextLine());
+
+    System.out.println("Cliente actualizado correctamente.");
+}
 }
