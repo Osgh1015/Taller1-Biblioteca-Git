@@ -95,4 +95,24 @@ private static void UPDATE() {
 
     System.out.println("Cliente actualizado correctamente.");
 }
+
+//DELETE 
+
+private static void DELETE() {
+    System.out.print("Id del cliente a eliminar: ");
+    String id = sc.nextLine();
+
+    Client c = findClientInternal(id);
+
+    if (c == null) {
+        System.out.println("Cliente no encontrado.");
+        return;
+    }
+
+    // Eliminar el cliente de la lista
+    clients.remove(c);
+
+    System.out.println("Cliente eliminado correctamente.");
+}
+
 }
