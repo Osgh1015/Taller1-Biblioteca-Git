@@ -171,4 +171,18 @@ private static void findBookByCode(String code) {
             System.out.println(b);
         }
     }
+
+// UPDATE
+    private static void updateBook() {
+        String code = readText("Codigo del libro para actualizar: ");
+        Book b = findBookInternal(code);
+        if (b == null) {
+            System.out.println("libro no encontrado ");
+            return;
+        }
+        b.setTitle(readText("nuevo titulo  (" + b.getTitle() + "): "));
+        b.setPublicationYear(readText("nuevo año (" + b.getPublicationYear() + "): "));
+        b.setAuthor(readText("nuevo autor (" + b.getAuthor() + "): "));
+        System.out.println("libro actualizado exitosamente.");
+    }
 }
