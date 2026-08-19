@@ -147,4 +147,19 @@ private static String readText(String prompt) {
     System.out.print(prompt);
     return sc.nextLine();
 }
+
+
+// READ (list)
+private static void listBooks() {
+    System.out.println("\n-- lista de libros  --");
+
+    if (books.isEmpty()) {
+        System.out.println("NO hay libros registrados.");
+        return;
+    }
+
+    for (Book b : books) {
+        System.out.println(b);
+    }
+}
 }
