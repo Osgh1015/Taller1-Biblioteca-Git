@@ -14,8 +14,8 @@ public class Main {
     }
     
 // Crear un nuevo cliente
-private static void Create() {
-    System.out.println("\n-- Create client --");
+private static void CREATE() {
+    System.out.println("\n-- Crear cliente --");
 
     System.out.print("Id: ");
     String id = sc.nextLine();
@@ -32,12 +32,12 @@ private static void Create() {
     // Crear el cliente y agregarlo a la lista
     clients.add(new Client(id, name, phone, email));
 
-    System.out.println("Client created successfully.");
+    System.out.println("cliente creado exitosamente.");
 }
 
 
-//READ LISTA DE CLIENTE
-private static void Read () {
+//READ (LISTAR Y BUSCAR)
+private static void READ () {
     System.out.println("\n-- Lista de clientes --");
 
     if (clients.isEmpty()) {
@@ -60,15 +60,15 @@ private static Client findClientInternal(String id) {
 
     return null;
 }
+//READ BUSCAR
 
-// READ (buscar)
 private static void findClientById(String id) {
-    Client c = findClientInternal(id);
+        Client c = findClientInternal(id);
 
-    if (c == null) {
-        System.out.println("Cliente no encontrado.");
-    } else {
-        System.out.println(c);
+        if (c == null) {
+            System.out.println("Cliente no encontrado.");
+        } else {
+            System.out.println(c);
+        }
     }
-}
 }
