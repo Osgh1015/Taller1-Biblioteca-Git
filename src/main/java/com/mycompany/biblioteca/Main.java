@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class Main {
 
     static ArrayList<Client> clients = new ArrayList<>();
+    static ArrayList<Book> books = new ArrayList<>();
     static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -115,4 +116,35 @@ private static void DELETE() {
     System.out.println("Cliente eliminado correctamente.");
 }
 
+//-----------LIBRO---------------
+
+// CREATE
+    private static void createBook() {
+        System.out.println("\n-- Create book --");
+        String code = readText("Code: ");
+        if (findBookInternal(code) != null) {
+            System.out.println("A book with that code already exists.");
+            return;
+        }
+        String title = readText("Title: ");
+        String year = readText("Publication year: ");
+        String author = readText("Author: ");
+        books.add(new Book(code, title, year, author));
+        System.out.println("Book created successfully.");
+    }
+    // Método auxiliar para buscar un libro por código
+private static Book findBookInternal(String code) {
+    for (Book b : books) {
+        if (b.getCode().equals(code)) {
+            return b;
+        }
+    }
+
+    return null;
+}
+    // Leer texto ingresado por el usuario
+private static String readText(String prompt) {
+    System.out.print(prompt);
+    return sc.nextLine();
+}
 }
