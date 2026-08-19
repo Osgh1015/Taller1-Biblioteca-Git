@@ -162,4 +162,13 @@ private static void listBooks() {
         System.out.println(b);
     }
 }
+//READ (BUSCAR)
+private static void findBookByCode(String code) {
+        Book b = findBookInternal(code);
+        if (b == null) {
+            System.out.println("Book not found.");
+        } else {
+            System.out.println(b);
+        }
+    }
 }
