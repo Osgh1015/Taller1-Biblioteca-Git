@@ -185,4 +185,16 @@ private static void findBookByCode(String code) {
         b.setAuthor(readText("nuevo autor (" + b.getAuthor() + "): "));
         System.out.println("libro actualizado exitosamente.");
     }
+    
+     // DELETE
+    private static void deleteBook() {
+        String code = readText("Codigo del libro a eliminar: ");
+        Book b = findBookInternal(code);
+        if (b == null) {
+            System.out.println("libro no encontrado.");
+            return;
+        }
+        books.remove(b);
+        System.out.println("libro eliminado exitosamente.");
+    }
 }
