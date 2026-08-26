@@ -3,11 +3,13 @@ package com.mycompany.biblioteca;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDate;
 
 public class Main {
 
     static ArrayList<Client> clients = new ArrayList<>();
     static ArrayList<Book> books = new ArrayList<>();
+    static ArrayList<Loan> loans = new ArrayList<>();
     static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -197,4 +199,59 @@ private static void findBookByCode(String code) {
         books.remove(b);
         System.out.println("libro eliminado exitosamente.");
     }
+    
+     // ==================== LOAN MANAGEMENT ====================
+ 
+    // Register loan
+    private static void createLoan() {
+        System.out.println("\n-- Register loan --");
+        String clientId = readText("Client id: ");
+        Client c = findClientInternal(clientId);
+        if (c == null) {
+            System.out.println("Client not found. The loan cannot be registered.");
+            return;
+        }
+        String bookCode = readText("Book code: ");
+        Book b = findBookInternal(bookCode);
+        if (b == null) {
+            System.out.println("Book not found. The loan cannot be registered.");
+            return;
+        }
+        if (!b.isAvailable()) {
+            System.out.println("This book is not currently available.");
+            return;
+        }
+        String loanId = readText("Loan id: ");
+        Loan loan = new Loan(loanId, c, b, LocalDate.now());
+        loans.add(loan);
+        b.setAvailable(false); // the book is now checked out
+        System.out.println("Loan registered successfully.");
+    }
+ 
+    private static Loan findLoanInternal(String loanId) {
+        for (Loan l : loans) {
+            if (l.getLoanId().equals(loanId)) {
+                return l;
+            }
+        }
+        return null;
+    }
+    
+      // Register return
+    private static void returnLoan() {
+        String loanId = readText("Id del prestamo para devolver: ");
+        Loan l = findLoanInternal(loanId);
+        if (l == null) {
+            System.out.println("prestamo no encontrado.");
+            return;
+        }
+        if (l.getStatus().equals("DEVUELTO")) {
+            System.out.println("Este prestamo ya fue devuelto.");
+            return;
+        }
+        l.setStatus("DEVUELTO");
+        l.getBook().setAvailable(true); // the book becomes available again
+        System.out.println("devolucion registrada exitosamente.");
+    }
+    
 }
