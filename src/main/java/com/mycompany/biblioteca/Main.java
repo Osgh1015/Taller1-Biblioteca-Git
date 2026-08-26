@@ -12,9 +12,173 @@ public class Main {
     static ArrayList<Loan> loans = new ArrayList<>();
     static Scanner sc = new Scanner(System.in);
 
-    public static void main(String[] args) {
-        // Aquí irá el menú (Fase 8)
-    }
+  public static void main(String[] args) {
+    int option;
+    do {
+        showMainMenu();
+        option = readInt("Elija una opcion: ");
+
+        switch (option) {
+            case 1:
+                clientsMenu();
+                break;
+            case 2:
+                booksMenu();
+                break;
+            case 3:
+                loansMenu();
+                break;
+            case 0:
+                System.out.println("Cerrando el sistema...");
+                break;
+            default:
+                System.out.println("Opción invalida.");
+        }
+    } while (option != 0);
+}
+
+// ==================== MENÚS ====================
+
+// Mostrar menú principal
+private static void showMainMenu() {
+    System.out.println("\n===== BIBLIOTECA MUNICIPAL DE VALLEDUPAR =====");
+    System.out.println("1. Gestion de clientes");
+    System.out.println("2. Gestion de libros");
+    System.out.println("3. Gestion de prestamos");
+    System.out.println("0. Salir");
+}
+
+// ==================== MENÚ CLIENTES ====================
+
+private static void clientsMenu() {
+    int option;
+
+    do {
+        System.out.println("\n--- GESTION DE CLIENTES ---");
+        System.out.println("1. Crear cliente");
+        System.out.println("2. Listar clientes");
+        System.out.println("3. Buscar cliente por ID");
+        System.out.println("4. Actualizar cliente");
+        System.out.println("5. Eliminar cliente");
+        System.out.println("0. Volver al menu principal");
+
+        option = readInt("Elija una opcion: ");
+
+        switch (option) {
+            case 1:
+                CREATE();
+                break;
+
+            case 2:
+                READ();
+                break;
+
+            case 3:
+                findClientById(readText("Ingrese el ID del cliente a buscar: "));
+                break;
+
+            case 4:
+                UPDATE();
+                break;
+
+            case 5:
+                DELETE();
+                break;
+
+            case 0:
+                break;
+
+            default:
+                System.out.println("Opcion invalida.");
+        }
+
+    } while (option != 0);
+}
+
+// ==================== MENÚ LIBROS ====================
+
+private static void booksMenu() {
+    int option;
+
+    do {
+        System.out.println("\n--- GESTION DE LIBROS ---");
+        System.out.println("1. Crear libro");
+        System.out.println("2. Listar libros");
+        System.out.println("3. Buscar libro por código");
+        System.out.println("4. Actualizar libro");
+        System.out.println("5. Eliminar libro");
+        System.out.println("0. Volver al menu principal");
+
+        option = readInt("Elija una opcion: ");
+
+        switch (option) {
+            case 1:
+                createBook();
+                break;
+
+            case 2:
+                listBooks();
+                break;
+
+            case 3:
+                findBookByCode(readText("Ingrese el código del libro a buscar: "));
+                break;
+
+            case 4:
+                updateBook();
+                break;
+
+            case 5:
+                deleteBook();
+                break;
+
+            case 0:
+                break;
+
+            default:
+                System.out.println("Opción invalida.");
+        }
+
+    } while (option != 0);
+}
+
+// ==================== MENÚ PRÉSTAMOS ====================
+
+private static void loansMenu() {
+    int option;
+
+    do {
+        System.out.println("\n--- GESTION DE PRESTAMOS ---");
+        System.out.println("1. Registrar prestamo");
+        System.out.println("2. Registrar devolucion");
+        System.out.println("3. Listar préstamos activos");
+        System.out.println("0. Volver al menu principal");
+
+        option = readInt("Elija una opcion: ");
+
+        switch (option) {
+            case 1:
+                createLoan();
+                break;
+
+            case 2:
+                returnLoan();
+                break;
+
+            case 3:
+                listActiveLoans();
+                break;
+
+            case 0:
+                break;
+
+            default:
+                System.out.println("Opcion invalida.");
+        }
+
+    } while (option != 0);
+}
+
     
 // Crear un nuevo cliente
 private static void CREATE() {
@@ -253,5 +417,36 @@ private static void findBookByCode(String code) {
         l.getBook().setAvailable(true); // the book becomes available again
         System.out.println("devolucion registrada exitosamente.");
     }
-    
+    // Listar préstamos activos
+private static void listActiveLoans() {
+    System.out.println("\n-- Préstamos activos --");
+    boolean hayActivos = false;
+
+    for (Loan l : loans) {
+        if (l.getStatus().equals("ACTIVE")) {
+            System.out.println(l);
+            hayActivos = true;
+        }
+    }
+
+    if (!hayActivos) {
+        System.out.println("No hay préstamos activos.");
+    }
 }
+
+     
+    // ==================== INPUT UTILITIES ====================
+ 
+    private static int readInt(String message) {
+        System.out.print(message);
+        while (!sc.hasNextInt()) {
+            System.out.println("Please enter a valid number.");
+            sc.next();
+            System.out.print(message);
+        }
+        int value = sc.nextInt();
+        sc.nextLine(); // clears the pending newline
+        return value;
+    }
+}
+    
