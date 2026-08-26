@@ -236,5 +236,22 @@ private static void findBookByCode(String code) {
         }
         return null;
     }
+    
+      // Register return
+    private static void returnLoan() {
+        String loanId = readText("Id del prestamo para devolver: ");
+        Loan l = findLoanInternal(loanId);
+        if (l == null) {
+            System.out.println("prestamo no encontrado.");
+            return;
+        }
+        if (l.getStatus().equals("DEVUELTO")) {
+            System.out.println("Este prestamo ya fue devuelto.");
+            return;
+        }
+        l.setStatus("DEVUELTO");
+        l.getBook().setAvailable(true); // the book becomes available again
+        System.out.println("devolucion registrada exitosamente.");
+    }
  
 }
